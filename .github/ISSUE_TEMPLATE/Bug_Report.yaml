@@ -27,9 +27,10 @@ body:
     
 - type: input
   attributes:
-    label: Windows Build Number
+    label: Version
     description: |
       Please run `cmd.exe /c ver` to get the build of Windows you are on.
+      If you are running Windows Subsystem for Linux from the Microsoft Store, please run `wsl.exe --version`
     placeholder: "Microsoft Windows [Version 10.0.19042.867]"
   validations:
     required: true
