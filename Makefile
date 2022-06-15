@@ -1,4 +1,4 @@
-OUT_ZIP=ArchARM64WSL2.zip
+OUT_ZIP=ArchWSL2_arm64.zip
 LNCR_EXE=Arch.exe
 
 DLR=curl
