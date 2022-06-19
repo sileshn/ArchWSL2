@@ -113,9 +113,9 @@ echo -e ${grn}"Initializing and populating keyring..."${txtrst}
 pacman-key --init >/dev/null 2>&1
 pacman-key --populate >/dev/null 2>&1
 setcap cap_net_raw+p /usr/sbin/ping
-rm /var/lib/dbus/machine-id
-dbus-uuidgen --ensure=/etc/machine-id
-dbus-uuidgen --ensure
+sed -i '/PS1/d' /etc/skel/.bashrc
+echo "PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '" | tee -a /etc/skel/.bashrc >/dev/null 2>&1
+echo 'export BROWSER="wslview"' | tee -a /etc/skel/.bashrc >/dev/null 2>&1
 
 echo -e ${grn}"Do you want to create a new user?"${txtrst}
 select yn in "Yes" "No"; do
