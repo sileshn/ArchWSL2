@@ -113,11 +113,26 @@ echo -e ${grn}"Initializing and populating keyring..."${txtrst}
 pacman-key --init >/dev/null 2>&1
 pacman-key --populate >/dev/null 2>&1
 setcap cap_net_raw+p /usr/sbin/ping
+
+echo -e ${grn}"Compiling & switching to dbus-x11. Please be patient.."${txtrst}
+systemd-machine-id-setup
+rm /var/lib/dbus/machine-id
+dbus-uuidgen --ensure=/etc/machine-id
+dbus-uuidgen --ensure
+pacman -Rdd --noconfirm dbus >/dev/null 2>&1
+useradd -m -g users -G wheel builduser >/dev/null 2>&1
+passwd -d builduser >/dev/null 2>&1 
+cd /home && wget -q https://aur.archlinux.org/cgit/aur.git/snapshot/dbus-x11.tar.gz
+tar xf dbus-x11.tar.gz >/dev/null 2>&1
+sudo chown -R builduser dbus-x11 && cd dbus-x11
+sudo -u builduser bash -c 'makepkg -si --noconfirm && libtool --finish /usr/lib' >/dev/null 2>&1
+cd .. && rm -rf dbus-x11 && rm dbus-x11.tar.gz
+userdel -r builduser >/dev/null 2>&1
 sed -i '/PS1/d' /etc/skel/.bashrc
 echo "PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '" | tee -a /etc/skel/.bashrc >/dev/null 2>&1
 echo 'export BROWSER="wslview"' | tee -a /etc/skel/.bashrc >/dev/null 2>&1
 
-echo -e ${grn}"Do you want to create a new user?"${txtrst}
+echo -e ${grn}"\nDo you want to create a new user?"${txtrst}
 select yn in "Yes" "No"; do
     case $yn in
         Yes)
