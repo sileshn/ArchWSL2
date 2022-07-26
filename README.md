@@ -1,7 +1,7 @@
 # ArchWSL2
 Archlinux on WSL2 (Windows 10 FCU or later) based on [wsldl](https://github.com/yuk7/wsldl).
 
-[![Screenshot-2022-06-15-012741.png](https://i.postimg.cc/wTbkHDWH/Screenshot-2022-06-15-012741.png)](https://postimg.cc/qzyKx6VZ)
+[![Screenshot-2022-07-26-064739.png](https://i.postimg.cc/wBzRfFbg/Screenshot-2022-07-26-064739.png)](https://postimg.cc/sMn21PrN)
 [![Github All Releases](https://img.shields.io/github/downloads/sileshn/ArchWSL2/total?logo=github&style=flat-square)](https://github.com/sileshn/ArchWSL2/releases) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/sileshn/ArchWSL2?display_name=release&label=latest%20release&style=flat-square)](https://github.com/sileshn/ArchWSL2/releases/latest)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![License](https://img.shields.io/github/license/sileshn/ArchWSL2.svg?style=flat-square)](https://github.com/sileshn/ArchWSL2/blob/main/LICENSE)
 
