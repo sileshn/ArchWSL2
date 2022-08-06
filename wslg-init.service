@@ -1,0 +1,11 @@
+[Unit]
+Description=symlink /tmp/.X11-unix
+After=systemd-tmpfiles-setup.service
+
+[Service]
+Type=oneshot
+ExecStart=rmdir /tmp/.X11-unix
+ExecStart=ln -s /mnt/wslg/.X11-unix /tmp/
+
+[Install]
+WantedBy=sysinit.target
