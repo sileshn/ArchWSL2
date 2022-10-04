@@ -11,7 +11,7 @@ all: $(OUT_ZIP)
 zip: $(OUT_ZIP)
 $(OUT_ZIP): ziproot
 	@echo -e '\e[1;31mBuilding $(OUT_ZIP)\e[m'
-	cd ziproot; zip ../$(OUT_ZIP) *
+	cd ziproot; bsdtar -a -cf ../$(OUT_ZIP) *
 
 ziproot: Launcher.exe rootfs.tar.gz
 	@echo -e '\e[1;31mBuilding ziproot...\e[m'
