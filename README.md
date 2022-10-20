@@ -9,7 +9,7 @@ Archlinux on WSL2 (Windows 10 FCU or later) based on [wsldl](https://github.com/
 ArchWSL2 has the following features during the installation stage.
 * Increase virtual disk size from the default 256GB
 * Create a new user and set the user as default
-* ArchWSL2 supports systemd natively if you are running wsl v0.67.6 (more details [here](https://devblogs.microsoft.com/commandline/systemd-support-is-now-available-in-wsl/)) and above. For earlier versions of wsl, systemd is supported using diddledani's [one-script-wsl2-systemd](https://github.com/diddledani/one-script-wsl2-systemd). You can do a minimal setup using [this](https://github.com/diddledani/one-script-wsl2-systemd#minimal-manual-installation) procedure using an older version of the script as the latest changes are not working. Use the commands below.
+* ArchWSL2 supports systemd natively if you are running wsl v0.67.6 (more details [here](https://devblogs.microsoft.com/commandline/systemd-support-is-now-available-in-wsl/)) and above. You will need the [store version of wsl](https://apps.microsoft.com/store/detail/windows-subsystem-for-linux-preview/9P9TQF7MRM4R) for native systemd support. For previous versions of wsl, systemd is supported using diddledani's [one-script-wsl2-systemd](https://github.com/diddledani/one-script-wsl2-systemd). You can do a minimal setup using [this](https://github.com/diddledani/one-script-wsl2-systemd#minimal-manual-installation) procedure using an older version of the script as the latest changes are not working. Use the commands below.
 	```cmd
 	sudo wget https://raw.githubusercontent.com/diddledani/one-script-wsl2-systemd/main/src/sudoers -O /etc/sudoers.d/wsl2-systemd
 	sudo sed -i 's/%sudo/%wheel/g' /etc/sudoers.d/wsl2-systemd
