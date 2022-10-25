@@ -1,17 +1,17 @@
 ---
-name: "ManjaroWSL - Bug Report"
-description: Report a bug on ManjaroWSL
+name: "ArchWSL2 - Bug Report"
+description: Report a bug on ArchWSL2
 body:
 - type: markdown
   attributes:
     value: |
-      Please [search for existing issues](https://github.com/sileshn/ManjaroWSL/issues) before creating a new one.
+      Please [search for existing issues](https://github.com/sileshn/ArchWSL2/issues) before creating a new one.
       
 - type: checkboxes
   attributes:
     label: Requirements
     description: |
-      Tell us whether you have checked and completed the [prerequisite](https://github.com/sileshn/ManjaroWSL#requirements)
+      Tell us whether you have checked and completed the [prerequisite](https://github.com/sileshn/ArchWSL2#requirements)
     options:
       - label: "Yes"
       - label: "No"
@@ -20,7 +20,7 @@ body:
   attributes:
     label: WSL Version
     description: |
-      Tell us whether you are running WSL 2 and/or WSL 1. You can tell your WSL version by running `wsl -l -v`. ManjaroWSL needs wsl2 to work.
+      Tell us whether you are running WSL 2 and/or WSL 1. You can tell your WSL version by running `wsl -l -v`. ArchWSL2 needs wsl2 to work.
     options:
       - label: "WSL 2"
       - label: "WSL 1"
