@@ -46,7 +46,7 @@ rootfs: base.tar
 
 base.tar:
 	@echo -e '\e[1;31mExporting base.tar using docker...\e[m'
-	docker import http://os.archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz archlinuxarm:base; docker run --net=host --name archarmwsl archlinuxarm:base /bin/bash -c "pacman-key --init; pacman-key --populate; sed -ibak -e 's/#Color/Color/g' -e 's/CheckSpace/#CheckSpace/g' /etc/pacman.conf; sed -ibak -e 's/IgnorePkg/#IgnorePkg/g' /etc/pacman.conf; userdel -r alarm; pacman -Rs --noconfirm linux-aarch64 mkinitcpio; rm /etc/mkinitcpio.d/linux-aarch64.preset.pacsave; sed -i '/usr\/share\/man/d' /etc/pacman.conf; pacman --noconfirm -Syyu; pacman --noconfirm --needed -Sy aria2 aspell ccache dbus dconf dos2unix figlet git grep hspell hunspell inetutils iputils iproute2 keychain libvoikko linux-tools lolcat man-db man-pages nano ntp nuspell openssh procps socat sudo usbutils vi vim wget xdg-utils; mkdir -p /etc/pacman.d/hooks; echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel; sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen && locale-gen; yes | LC_ALL=en_US.UTF-8 pacman -Scc"
+	docker run --net=host --name archarmwsl menci/archlinuxarm:base-devel /bin/bash -c "pacman-key --init; pacman-key --populate; sed -ibak -e 's/#Color/Color/g' -e 's/CheckSpace/#CheckSpace/g' /etc/pacman.conf; sed -ibak -e 's/IgnorePkg/#IgnorePkg/g' /etc/pacman.conf; sed -i '/usr\/share\/man/d' /etc/pacman.conf; pacman --noconfirm -Syyu; pacman --noconfirm --needed -Sy aria2 aspell ccache dbus dconf dos2unix figlet git grep hspell hunspell inetutils iputils iproute2 keychain libvoikko linux-tools lolcat man-db man-pages nano ntp nuspell openssh procps socat sudo usbutils vi vim wget xdg-utils; mkdir -p /etc/pacman.d/hooks; echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel; sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen && locale-gen; yes | LC_ALL=en_US.UTF-8 pacman -Scc"
 	docker export --output=base.tar archarmwsl
 	docker rm -f archarmwsl
 
@@ -59,4 +59,4 @@ clean:
 	-rm rootfs.tar.gz
 	-sudo rm -r rootfs
 	-rm base.tar
-	-docker rmi archlinuxarm:base -f
+	-docker rmi menci/archlinuxarm:base-devel -f
