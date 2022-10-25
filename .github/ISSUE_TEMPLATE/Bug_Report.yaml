@@ -18,6 +18,15 @@ body:
       
 - type: checkboxes
   attributes:
+    label: CPU Architecture
+    description: |
+      Tell us whether you are running the x64 or the arm64 version.
+    options:
+      - label: "arm64"
+      - label: "x64"
+      
+- type: checkboxes
+  attributes:
     label: WSL Version
     description: |
       Tell us whether you are running WSL 2 and/or WSL 1. You can tell your WSL version by running `wsl -l -v`. ArchWSL2 needs wsl2 to work.
