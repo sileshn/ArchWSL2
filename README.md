@@ -6,6 +6,8 @@ Archlinux on WSL2 (Windows 10 FCU or later) based on [wsldl](https://github.com/
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![License](https://img.shields.io/github/license/sileshn/ArchWSL2.svg?style=flat-square)](https://github.com/sileshn/ArchWSL2/blob/main/LICENSE)
 
 ## Features and important information
+ArchWSL2 may not properly load the Intel WSL driver by default which makes it impossible to use the D3D12 driver on Intel graphics cards. This is because the Intel WSL driver files link against libraries that do not exist in Archlinux. You can manually fix this issue using `ldd` to see which libraries they are linked, eg: `ldd /usr/lib/wsl/drivers/iigd_dch_d.inf_amd64_49b17bc90a910771/*.so`, and then try installing the libraries marked `not found` from the Archlinux package repository. If the corresponding library file is not found in the package repository, it may be that the version suffix of the library file is different, such as `libedit.so.0.0.68` and `libedit.so.2`. In such a case, you can try to create a symlink.
+
 ArchWSL2 has the following features during the installation stage.
 * Increase virtual disk size from the default 256GB
 * Create a new user and set the user as default
