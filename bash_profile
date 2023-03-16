@@ -81,7 +81,7 @@ if [ "$disksize" -le 274877906944 ]; then
                                 echo "cmd /c start \"$WSL_DISTRO_NAME\" wsl.exe --cd ~ -d $WSL_DISTRO_NAME" | sudo tee -a ~/shutdown.cmd >/dev/null 2>&1
                             fi
                             cp ~/vhdresize.txt /mnt/c/Users/Public
-                            cp ~/shutdown.cmd /mnt/c/Users/Public
+                            cp ~/shutdown.cmd /mnt/c/Users/Public && rm ~/shutdown.cmd
                             break
                         fi
                     else
@@ -144,7 +144,7 @@ select yn in "Yes" "No"; do
                         echo "cmd /c start \"$WSL_DISTRO_NAME\" wsl.exe --cd ~ -d $WSL_DISTRO_NAME" | sudo tee -a ~/shutdown.cmd >/dev/null 2>&1
                     fi
                     echo "del C:\Users\Public\shutdown.cmd" | sudo tee -a ~/shutdown.cmd >/dev/null 2>&1
-                    cp ~/shutdown.cmd /mnt/c/Users/Public
+                    cp ~/shutdown.cmd /mnt/c/Users/Public && rm ~/shutdown.cmd
 
                     if echo $(wsl.exe --version | tr -d '\0' | sed -n 1p | cut -f3 -d " " | cut -f1 -d ".") >0 || echo $(wsl.exe --version | tr -d '\0' | sed -n 1p | cut -f3 -d " " | cut -f2 -d ".") >0 || (($(echo $(wsl.exe --version | tr -d '\0' | sed -n 1p | cut -f3 -d " " | cut -f2-3 -d ".") '>' 67.5 | bc))); then
                         commandline="systemd=true"
@@ -172,8 +172,6 @@ select yn in "Yes" "No"; do
             done
             ;;
         No)
-            clear
-            rm ~/.bash_profile
             break
             ;;
     esac
@@ -199,7 +197,7 @@ else
     echo "cmd /c start \"$WSL_DISTRO_NAME\" wsl.exe --cd ~ -d $WSL_DISTRO_NAME" | sudo tee -a ~/shutdown.cmd >/dev/null 2>&1
 fi
 echo "del C:\Users\Public\shutdown.cmd" | sudo tee -a ~/shutdown.cmd >/dev/null 2>&1
-cp ~/shutdown.cmd /mnt/c/Users/Public
+cp ~/shutdown.cmd /mnt/c/Users/Public && rm ~/shutdown.cmd
 
 secs=3
 printf ${ylw}"\nArchWSL2 will shutdown and restart to setup systemd!!!\n\n"${txtrst}
