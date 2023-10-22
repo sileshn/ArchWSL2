@@ -127,7 +127,7 @@ select yn in "Yes" "No"; do
                     echo -e ${red}" Blank username entered. Try again!!!"${txtrst}
                     echo -en "\033[1A\033[1A\033[2K"
                     username=""
-                elif grep -q "$username" /etc/passwd; then
+                elif grep -q "^$username" /etc/passwd; then
                     echo -e ${red}"Username already exists. Try again!!!"${txtrst}
                     echo -en "\033[1A\033[1A\033[2K"
                     username=""
