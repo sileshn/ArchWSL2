@@ -148,18 +148,6 @@ select yn in "Yes" "No"; do
                     echo "del C:\Users\Public\shutdown.cmd" | sudo tee -a ~/shutdown.cmd >/dev/null 2>&1
                     cp ~/shutdown.cmd /mnt/c/Users/Public && rm ~/shutdown.cmd
 
-                    if echo $(wsl.exe --version | tr -d '\0' | sed -n 1p | cut -f3 -d " " | cut -f1 -d ".") >0 || echo $(wsl.exe --version | tr -d '\0' | sed -n 1p | cut -f3 -d " " | cut -f2 -d ".") >0 || (($(echo $(wsl.exe --version | tr -d '\0' | sed -n 1p | cut -f3 -d " " | cut -f2-3 -d ".") '>' 67.5 | bc))); then
-                        commandline="systemd=true"
-                        echo "$commandline" >>/etc/wsl.conf
-                    else
-                        commandline="command = \"/usr/bin/env -i /usr/bin/unshare --fork --mount --propagation shared --mount-proc --pid -- sh -c 'mount -t binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc; [ -x /usr/lib/systemd/systemd ] && exec /usr/lib/systemd/systemd --unit=multi-user.target || exec /lib/systemd/systemd --unit=multi-user.target'\""
-                        echo "$commandline" >>/etc/wsl.conf
-                        wget https://raw.githubusercontent.com/diddledani/one-script-wsl2-systemd/main/src/sudoers -O /etc/sudoers.d/wsl2-systemd
-                        sed -i 's/%sudo/%wheel/g' /etc/sudoers.d/wsl2-systemd
-                        wget https://raw.githubusercontent.com/diddledani/one-script-wsl2-systemd/4dc64fba72251f1d9804ec64718bb005e6b27b62/src/00-wsl2-systemd.sh -P /etc/profile.d/
-                        sed -i '/\\nSystemd/d' /etc/profile.d/00-wsl2-systemd.sh
-                    fi
-
                     secs=3
                     printf ${ylw}"\nTo set the new user as the default user, ArchWSL2 will shutdown and restart!!!\n\n"${txtrst}
                     while [ $secs -gt 0 ]; do
@@ -179,18 +167,6 @@ select yn in "Yes" "No"; do
     esac
 done
 
-if echo $(wsl.exe --version | tr -d '\0' | sed -n 1p | cut -f3 -d " " | cut -f1 -d ".") >0 || echo $(wsl.exe --version | tr -d '\0' | sed -n 1p | cut -f3 -d " " | cut -f2 -d ".") >0 || (($(echo $(wsl.exe --version | tr -d '\0' | sed -n 1p | cut -f3 -d " " | cut -f2-3 -d ".") '>' 67.5 | bc))); then
-    commandline="systemd=true"
-    echo "$commandline" >>/etc/wsl.conf
-else
-    commandline="command = \"/usr/bin/env -i /usr/bin/unshare --fork --mount --propagation shared --mount-proc --pid -- sh -c 'mount -t binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc; [ -x /usr/lib/systemd/systemd ] && exec /usr/lib/systemd/systemd --unit=multi-user.target || exec /lib/systemd/systemd --unit=multi-user.target'\""
-    echo "$commandline" >>/etc/wsl.conf
-    wget https://raw.githubusercontent.com/diddledani/one-script-wsl2-systemd/main/src/sudoers -O /etc/sudoers.d/wsl2-systemd
-    sed -i 's/%sudo/%wheel/g' /etc/sudoers.d/wsl2-systemd
-    wget https://raw.githubusercontent.com/diddledani/one-script-wsl2-systemd/4dc64fba72251f1d9804ec64718bb005e6b27b62/src/00-wsl2-systemd.sh -P /etc/profile.d/
-    sed -i '/\\nSystemd/d' /etc/profile.d/00-wsl2-systemd.sh
-fi
-
 echo "@echo off" | sudo tee -a ~/shutdown.cmd >/dev/null 2>&1
 echo "wsl.exe --terminate $WSL_DISTRO_NAME" | sudo tee -a ~/shutdown.cmd >/dev/null 2>&1
 if env | grep "WT_SESSION" >/dev/null 2>&1; then
@@ -202,7 +178,7 @@ echo "del C:\Users\Public\shutdown.cmd" | sudo tee -a ~/shutdown.cmd >/dev/null 
 cp ~/shutdown.cmd /mnt/c/Users/Public && rm ~/shutdown.cmd
 
 secs=3
-printf ${ylw}"\nArchWSL2 will shutdown and restart to setup systemd!!!\n\n"${txtrst}
+printf ${ylw}"\nArchWSL2 will shutdown and restart to finish setup!!!\n\n"${txtrst}
 while [ $secs -gt 0 ]; do
     printf "\r\033[KShutting down in %.d seconds. " $((secs--))
     sleep 1
