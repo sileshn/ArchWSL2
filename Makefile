@@ -3,7 +3,7 @@ LNCR_EXE=Arch.exe
 
 DLR=curl
 DLR_FLAGS=-L
-LNCR_ZIP_URL=https://github.com/yuk7/wsldl/releases/download/25031900/icons_arm64.zip
+LNCR_ZIP_URL=https://github.com/yuk7/wsldl/releases/download/`curl https://api.github.com/repos/yuk7/wsldl/releases/latest -s | jq .name -r`/icons_arm64.zip
 LNCR_ZIP_EXE=Arch.exe
 
 all: $(OUT_ZIP)
