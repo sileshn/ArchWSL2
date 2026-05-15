@@ -1,0 +1,64 @@
+name: Build and Release
+
+on:
+  # Se ejecuta automáticamente el primer día de cada mes a las 00:00 UTC
+  schedule:
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      release_date: ${{ steps.set_date.outputs.DATE }}
+    container:
+      image: klozzjesus/aosp_orangefox-builder:latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set date
+        id: set_date
+        run: |
+          DATE=$(date +'%Y%m%d')
+          echo "DATE=$DATE" >> $GITHUB_OUTPUT
+          echo "DATE=$DATE" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: |
+          sudo pacman -Syuu  --noconfirm
+          sudo pacman -Syu --noconfirm zip make tar libarchive docker jq curl unzip
+
+      - name: Build project
+        run: |
+          make clean
+          make
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ArchWSL2
+          path: ArchWSL2.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ArchWSL2
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ArchWSL2.zip
+          tag_name: ${{ needs.build.outputs.release_date }}
+          name: ArchWSL2-${{ needs.build.outputs.release_date }}
+          body: "ArchWSL2 Monthly Automatic Release"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
